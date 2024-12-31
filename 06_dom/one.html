@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>DOM learning</title>
+    <style>
+        .bg-black{
+            background-color: #212121;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <div >
+        <h1  id="title" class="heading">DOM learning on Chai aur code <span style="display: none;">test text</span></h1>
+        <h2>Lorem ipsum dolor sit.</h2>
+        <h2>Lorem ipsum dolor sit.</h2>
+        <h2>Lorem ipsum dolor sit.</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <input type="password" name="" id="">
+
+        <ul>
+            <li class="list-item">one</li>
+            <li class="list-item">two</li>
+            <li class="list-item">three</li>
+            <li class="list-item">four</li>
+        </ul>
+    </div>
+</body>
+<script>
+    document.getElementById("title").innerHTML="<h1>Chai Aur Code  </h1>"
+'<h1>Chai Aur Code  </h1>'
+
+
+//getAttribute is used to get the info related to the selected element
+document.getElementById("title").getAttribute("id")
+'title'
+document.getElementById("title").getAttribute("class")
+'heading'
+document.getElementById("title").getAttribute("className")
+null
+document.getElementById("title").id
+'title'
+document.getElementById("title").class
+undefined
+document.getElementById("title").className
+'heading'
+
+//setAttribute is used to create or intoduce or add new thing in element 
+document.getElementById("title").setAttribute("className","real title")
+undefined
+
+//method to get the content wrote in element
+//innerHTML show content with the tags used in it too
+//innertext only show the allowed display content 
+//textContent show the the text only but also show display : none text too
+document.getElementById("title").innerText
+'Chai Aur Code'
+document.getElementById("title").innerHTML
+'<h1>Chai Aur Code  </h1>'
+document.getElementById("title").textContent
+'Chai Aur Code  '
+
+// used to select something
+
+document.querySelector("#title")
+//<h1 id=​"title" class=​"heading" classname=​"real title">​…​</h1>​
+document.querySelector(".heading")
+//<h1 id=​"title" class=​"heading" classname=​"real title">​…​</h1>​<h1>​Chai Aur Code ​</h1>​</h1>​
+//document.querySelector("input[type="password"]")
+//VM1309:1 Uncaught SyntaxError: missing ) after argument list
+document.querySelector('input[type="password"]')
+
+//if we want to select all the elements then 
+document.querySelectorAll("li")  //give node list little similr to array but not that
+
+//list.style.background-color="green"
+// VM2121:1 Uncaught SyntaxError: Invalid left-hand side in assignment
+list.style.color="green"
+// VM2134:1 Uncaught TypeError: Cannot set properties of undefined (setting 'color')
+list[0].style.backgroundColor="pink"
+'pink'
+list[1].style.backgroundColor="green"
+'green'
+list[1].style.backgroundColor="yellow"
+'yellow'
+list[1].style.backgroundColor="green"
+'green'
+list[2].style.backgroundColor="yellow"
+'yellow'
+list[3].style.backgroundColor="grey"
+'grey'
+
+//method to apply changes to all selected items
+const list=document.querySelectorAll("li")
+// undefined
+list.forEach(function(lt){
+    lt.style.color="red"
+} )
+
+
+document.getElementsByClassName('list-item')  //provide HTML -COLLECTION DIFFER FRON Array and node list
+// HTMLCollection(4) [li.list-item, li.list-item, li.list-item, li.list-item]
+// 0: li.list-item
+// 1: li.list-item
+// 2: li.list-item
+// 3: li.list-item
+// length: 4
+//[[Prototype]]: HTMLCollection
+
+const items=document.getElementsByClassName('list-item')
+// undefined
+Array.from(items)  //method to convert to array
+// (4) [li.list-item, li.list-item, li.list-item, li.list-item]
+</script>
+</html>

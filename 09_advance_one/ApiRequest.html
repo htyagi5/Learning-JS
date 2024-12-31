@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121;">
+    0	UNSENT	Client has been created. open() not called yet.
+1	OPENED	open() has been called.
+2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+3	LOADING	Downloading; responseText holds partial data.
+4	DONE	The operation is complete.
+
+<div style="background-color: aliceblue; width:25vw; height: 90vh; display: flex; flex-direction: column; border-radius: 50px;margin-left: 40%; overflow: hidden;">
+<div class="image">
+    <img src=" " style="width: 25vw ; height: 45vh; display:block ;" alt="img">
+</div>
+<div style="font-size: larger; object-fit: cover;">
+    <p class="name">  </p>
+    <p class="followers"> </p>
+    <p class="purpose"> </p>
+     <p> Blog:<a href="\" class="Blog"></a></p>
+</div>
+</div>
+</body>
+<script>
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+    const xhr = new XMLHttpRequest();//XMLHttpRequest (XHR) is a JavaScript object that allows web pages to make asynchronous requests to a server without reloading the entire page. This is commonly used in AJAX (Asynchronous JavaScript and XML) to fetch data in the background and update parts of a web page dynamically 
+    xhr.open('GET', requestUrl)  //open method: Initializes the request. It specifies the HTTP method to use (GET in this case) and the URL (given by requestUrl) to send the request to.
+    xhr.onreadystatechange = function(){// The onreadystatechange property of the XMLHttpRequest object is an event handler that gets called whenever the readyState property of the XMLHttpRequest changes. It's crucial for managing the state changes of an HTTP request, particularly when dealing with asynchronous requests. 
+        console.log(xhr.readyState);// The readyState property of the XMLHttpRequest object indicates the current state of the request
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText)//JSON.parse  is a method to convert given string  into JSON FORMAT  intially data (responsetext) is in string came from api
+            //The JSON.parse method is used to convert a JSON string into a JavaScript object. This is particularly useful when you receive a JSON response from an API, as it allows you to work with the data as native JavaScript objects.
+            console.log( data); //object
+            console.log(data.followers);// earlier method get the data 
+            document.querySelector(".image img").src= data.avatar_url;
+            document.querySelector(".name").innerText=`Name : ${data.name}`;
+            document.querySelector(".purpose").innerText=`Purpose : ${data.bio}`;
+            document.querySelector(".followers").innerText=`Followers: ${data.followers}`;
+            document.querySelector(".Blog").innerText=`${data.blog}`;
+        }
+    }
+    xhr.send();// The xhr.send() method is used to send the XMLHttpRequest to the server.
+</script>
+</html>
