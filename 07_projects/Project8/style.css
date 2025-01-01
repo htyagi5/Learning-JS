@@ -1,0 +1,19 @@
+body{
+    background-color: black;
+    color: bisque;
+    
+} 
+ h1{
+    margin-left: 40%
+} 
+.content{
+    display: flex;
+    justify-content: center;
+    
+}
+button{
+    margin-top: 20px;
+    margin-left: 50%;
+padding: 20px;        
+}
+
