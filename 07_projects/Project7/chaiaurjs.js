@@ -6,15 +6,11 @@ btn.forEach((button)=>{
       button.addEventListener('click',(e)=>{
         if(e.target.id==='eraser'){
          isEraser=true
-         cursor.style.width = `${eraserSize * 2}px`; // Diameter of the eraser
-            cursor.style.height = `${eraserSize * 2}px`;
             cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
         }
         else{
             isEraser=false
           selectedcolor= e.target.id
-          cursor.style.width = '20px'; // Reset to default size
-            cursor.style.height = '20px';
             cursor.style.backgroundColor = e.target.id;
         }
       })

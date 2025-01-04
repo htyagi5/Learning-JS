@@ -62,7 +62,7 @@ button{
     margin-bottom: 960px;
     width:20px;
     height: 20px;
-    background-color: aliceblue;
+    background-color: red; /*for default*/
     border-radius: 50%;
     position: absolute;/* because hame chaiye ki mutiple pages pe ye poohoch sake agaar absolute dete to first page par hi rhe jata */
     z-index: 9;
