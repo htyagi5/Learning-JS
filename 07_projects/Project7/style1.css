@@ -67,3 +67,7 @@ button{
     position: absolute;/* because hame chaiye ki mutiple pages pe ye poohoch sake agaar absolute dete to first page par hi rhe jata */
     z-index: 9;
 }
+label{
+    margin-top:10px ;
+    color:black;
+}

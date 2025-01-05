@@ -15,6 +15,11 @@ btn.forEach((button)=>{
         }
       })
 })
+let bold=document.querySelector('#Range');
+let boldness=bold.value;
+  bold.addEventListener('input',(e)=>{
+    boldness=e.target.value;
+  })
 let draw=(e)=>{
     if(isEraser) return
     const dot=document.createElement('div')
@@ -22,8 +27,10 @@ let draw=(e)=>{
     // dot.id=Math.floor(Math.random()*100)
     dot.style.backgroundColor=selectedcolor
     dot.style.position="absolute"
-    dot.style.width="3px"
-    dot.style.height="3px"
+    console.log(boldness)
+    console.log(selectedcolor)
+    dot.style.width=`${boldness}px`;
+    dot.style.height=`${boldness}px`;
     dot.style.left=`${e.pageX}px`
     dot.style.top=`${e.pageY}px`
     document.body.appendChild(dot)
@@ -56,7 +63,6 @@ body.addEventListener('mousemove', function(e) {
         const elements = document.querySelectorAll('.dot'); // Select all dots
         elements.forEach((element) => {
             const rect = element.getBoundingClientRect();
-
             // Check if the element is within the eraser area
             if (
                 e.pageX >= rect.left - eraserSize &&
