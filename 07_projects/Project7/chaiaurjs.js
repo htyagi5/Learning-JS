@@ -1,7 +1,14 @@
 let box=document.querySelector('#space')
 let btn=document.querySelectorAll('#btn')
+let pen=document.querySelectorAll('#pens')
 let selectedcolor='red'
 let isEraser=false
+pen.forEach((pens)=>{
+    pens.addEventListener('click',(e)=>{
+        selectedcolor= e.target.id
+        cursor.style.backgroundColor = e.target.id;
+    })
+})
 btn.forEach((button)=>{
       button.addEventListener('click',(e)=>{
         if(e.target.id==='eraser'){
@@ -10,8 +17,7 @@ btn.forEach((button)=>{
         }
         else{
             isEraser=false
-          selectedcolor= e.target.id
-            cursor.style.backgroundColor = e.target.id;
+            cursor.style.backgroundColor=e.target.id;
         }
       })
 })
