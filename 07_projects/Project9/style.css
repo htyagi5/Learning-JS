@@ -85,17 +85,20 @@ border-radius: 50px;
     height: 55px;
      padding: 10px;
      border-radius: 12px;
+     font-size: 23px;
 }
 .operators button{
     width: 90px;
-    height: 45px;
+    height: 40px;
      border-radius: 12px;
+     font-size: 23px;
 }
 .roler button{
     width: 140px;
     height: 55px;
      padding: 20px;
      border-radius: 12px;
+     font-size: 23px;
 }
  .op{
     background-color: cyan;
