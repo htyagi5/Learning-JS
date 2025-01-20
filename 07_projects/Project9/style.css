@@ -3,32 +3,35 @@
     padding: 0;
     box-sizing: border-box;
 }
-html , body{
+
+html, body{
     height: 100%;
     width: 100%;
     background-color: black;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content:center ;
+    justify-content: center;
     align-items: center;
 }
+
 #box{
     width: 30vw;
     height: 45vw;
-background-color: burlywood;
-border-radius: 50px;
-padding: 20px 8px;
+    background-color: burlywood;
+    border-radius: 50px;
+    padding: 20px 8px;
 }
+
 #content{
     width: auto;
-    height:42vw;
-background-color: yellowgreen;
-border-radius: 50px;
-   padding: 12px;
+    height: 42vw;
+    background-color: yellowgreen;
+    border-radius: 50px;
+    padding: 12px;
 }
-.screen
-{
+
+.screen{
     background-color: aliceblue;
     width: auto;
     height: 100px;
@@ -36,8 +39,8 @@ border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
+
 .input{
     display: flex;
     justify-content: end;
@@ -49,17 +52,20 @@ border-radius: 50px;
     width: 90%;
     height: 80%;
 }
+
 .keys{
     border-radius: 10px;
-     width: auto;
+    width: auto;
     height: calc(42vw - 160px); 
     overflow-y: hidden;
     margin-top: 30px;  
 }
+
 .align{
     display: flex;
-     margin-left: 20px;
+    margin-left: 20px;
 }
+
 .numbers{
     width: 800px;
     height: 300px;
@@ -68,11 +74,13 @@ border-radius: 50px;
     flex-wrap: wrap;
     gap: 5px;
 }
+
 .operators{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .roler{
     margin-top: 12px;
     margin-left: 12px;
@@ -80,28 +88,86 @@ border-radius: 50px;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
 .numbers button{
     width: 80px;
     height: 55px;
-     padding: 10px;
-     border-radius: 12px;
-     font-size: 23px;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 23px;
 }
+
 .operators button{
     width: 90px;
     height: 40px;
-     border-radius: 12px;
-     font-size: 23px;
+    border-radius: 12px;
+    font-size: 23px;
 }
+
 .roler button{
     width: 140px;
     height: 55px;
-     padding: 20px;
-     border-radius: 12px;
-     font-size: 23px;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 23px;
+    display: flex;
+    place-content: center;
+    align-items: center;
 }
- .op{
+
+
+.op{
     background-color: cyan;
 }
 
+/* Media queries for small screens */
+@media only screen and (max-width: 600px) {
+    #box {
+        width: 95vw;
+        height: 150vw;
+    }
+
+    #content {
+        height: 100%;
+    }
+
+    .screen {
+        height: 120px;
+    }
+
+    .input {
+        font-size: 30px;
+        height: 80%;
+    }
+
+    .keys {
+        height: auto;
+        margin-top: 10px;
+        padding: 12px;
+
+    }
+
+    .numbers {
+        width: 120%;
+        height: auto;
+    }
+
+    .numbers button {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+    }
+
+    .operators button {
+        width: 60px;
+        height: 80px;
+        font-size: 25px;
+    }
+
+    .roler button {
+        width: 140px;
+        height: 50px;
+        font-size: 30px;
+    }
  
+}

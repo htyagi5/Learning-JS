@@ -2,7 +2,7 @@ let input=document.querySelector('.input')
 let number=document.querySelectorAll('.numbers')
 let operator=document.querySelectorAll('.operators')
 let spkeys=document.querySelectorAll('.roler')
-input.innerText='0'
+// input.innerText='0'
 let prev=0;
 number.forEach((key)=>{
     // input.innerText=""
@@ -21,7 +21,7 @@ operator.forEach((key)=>{
     //    console.log('click')
         }
         else{
-            input.innerText='0'
+            input.innerText=''
         }
     })
 })
@@ -39,7 +39,7 @@ spkeys.forEach((key)=>{
         }
     }
     else if(e.target.id=='cut'){
-        input.innerText=input.innerText.slice(0,-1) || '0';
+        input.innerText=input.innerText.slice(0,-1) || '';
     }
     // else{
     //      input.innerText=prev
