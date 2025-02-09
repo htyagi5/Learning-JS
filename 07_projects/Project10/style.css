@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html , body{
+    height: 100%;
+    width: 100%;
+}
+/* h1{
+    display: flex;
+    justify-content: center;
+} */
+body{
+    background-color: black;
+    color: wheat;
+   
+}
+.playground{
+    /* margin-top: 7vh; */
+    height: 100%;
+    width: 100%;
+    background-color: greenyellow;
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+}
+.ground{
+    margin: 5%;
+    width: 90%;
+    height: 600px;
+    background-color: plum;
+    border: 2px solid black;
+    /* border-radius: 20px; */
+}
