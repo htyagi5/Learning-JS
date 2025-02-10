@@ -63,7 +63,7 @@ let GameOver = () => {
           gameOverText.style.fontWeight = "bold";
           ground.appendChild(gameOverText);
 
-          return true; // Exit once collision is detected
+          return ; // Exit once collision is detected
 }
 
 
@@ -73,7 +73,7 @@ var direction;
 var prevdir;
 var pause=false;
 document.addEventListener("keydown", (event) => {
-
+  
   if (pause) return; // Stop movement if the game is over  
   // Kill existing animation before new movement
   gsap.killTweensOf(snakeBody[0]);
@@ -87,12 +87,18 @@ document.addEventListener("keydown", (event) => {
   // )
    {
       direction = event.key; // Update direction only if valid
-      if((direction=="ArrowRight" && prevdir!="ArrowLeft")||
-      (direction=="ArrowLeft" && prevdir!="ArrowRight")||
-      (direction=="ArrowUp" && prevdir!="ArrowDown")||  
-      (direction=="ArrowDown" && prevdir!="ArrowUp")
+
+      if((direction=="ArrowRight" && prevdir!="ArrowLeft"  && pause==false)||
+      (direction=="ArrowLeft" && prevdir!="ArrowRight" && pause==false)||
+      (direction=="ArrowUp" && prevdir!="ArrowDown" && pause==false)||  
+      (direction=="ArrowDown" && prevdir!="ArrowUp" && pause==false)
     ){
       prevdir=direction;}
+    else{
+      gsap.killTweensOf(snakeBody[0]);  // Stop head movement
+
+    }
+
       // Move the snake based on the new direction
       if (prevdir === "ArrowRight") {
           gsap.to(snakeBody[0], { x: "+=1500", duration: 10 });
@@ -145,17 +151,32 @@ let getHeadPosition = () => {
             }
         }
 
-
   for (let i = 3; i < snakeBody.length; i++) { // Start from 1, not 0
       let rect = snakeBody[i].getBoundingClientRect();
       let bodyPos = { x: rect.left, y: rect.top };
-
+       
       if (Math.abs(headPos.x - bodyPos.x) < 20 && Math.abs(headPos.y - bodyPos.y) < 20) {
           pause = true; // Stop the game
           console.log("Game Over!");
           GameOver();
       }
     }
+    
+    let head = snakeBody[0];
+    let headRect = head.getBoundingClientRect();
+    let groundRect = ground.getBoundingClientRect(); // Get play area bounds
+
+    // Check if the new move will take the snake outside
+    if (
+        (prevdir === "ArrowRight" && headRect.right >= groundRect.right) ||
+        (prevdir === "ArrowLeft" && headRect.left <= groundRect.left) ||
+        (prevdir === "ArrowUp" && headRect.top <= groundRect.top) ||
+        (prevdir === "ArrowDown" && headRect.bottom >= groundRect.bottom)
+    ) {
+      pause=true;
+        GameOver(); // Stop movement if it's outside the boundary
+    }
+
         // console.log(headPos.x,headPos.y)
     }, 20);
 
