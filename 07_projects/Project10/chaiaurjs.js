@@ -44,10 +44,37 @@ let addSegment = () => {
   ground.appendChild(div);
   snakeBody.push(div);
 };
+
+// Game Over
+let GameOver = () => {          
+          // Stop ALL movement
+          gsap.killTweensOf(snakeBody[0]);  // Stop head movement
+          clearInterval(followInterval);   // Stop body following
+
+          // Optionally, display a "Game Over" message
+          let gameOverText = document.createElement('div');
+          gameOverText.innerText = "GAME OVER";
+          gameOverText.style.position = "absolute";
+          gameOverText.style.top = "50%";
+          gameOverText.style.left = "50%";
+          gameOverText.style.transform = "translate(-50%, -50%)";
+          gameOverText.style.color = "red";
+          gameOverText.style.fontSize = "30px";
+          gameOverText.style.fontWeight = "bold";
+          ground.appendChild(gameOverText);
+
+          return true; // Exit once collision is detected
+}
+
+
+
 //Movement 
 var direction;
 var prevdir;
+var pause=false;
 document.addEventListener("keydown", (event) => {
+
+  if (pause) return; // Stop movement if the game is over  
   // Kill existing animation before new movement
   gsap.killTweensOf(snakeBody[0]);
 
@@ -89,13 +116,16 @@ let getHeadPosition = () => {
   // setInterval(() => {
     //   console.log(getHeadPosition()); // Prints the current position of the head
     // }, 2000);
+
+    // function GameStop(){
+    //   pause=true;
+    //   return pause;
+    // }
     let positions = []; // Store past positions of the head
     let delay = 3; // The delay between each segment following the previous one
-    let pause=false;
-    setInterval(() => {
-      if(pause){
-        return;
-      }
+    let followInterval=setInterval(() => {
+      // GameStop()
+      // console.log(pause)
       // console.log(prevdir)
         let headPos = getHeadPosition();
     
@@ -114,28 +144,21 @@ let getHeadPosition = () => {
                 snakeBody[i].style.top = `${positions[i * delay].y}px`;
             }
         }
-        GameOver();
-        // console.log(headPos.x,headPos.y)
-    }, 10);
-    function GameStop(){
-      pause=true;
-    }
 
-    // Game Over
-let GameOver=()=>{
-  let getBodyPosition = () => {
-          
-           for(let i=1;i<length;i++){
-            let rect = snakeBody[i].getBoundingClientRect();
-            return { x: rect.left, y: rect.top };
-          };
-          let headPos = getHeadPosition();
-          let BodyPos = getBodyPosition();
-            if(Math.abs(headPos.x - BodyPos.x) < 20 && Math.abs(headPos.y - BodyPos.y) < 20){
-            pause=true;
-          }
-          }
-        }
+
+  for (let i = 3; i < snakeBody.length; i++) { // Start from 1, not 0
+      let rect = snakeBody[i].getBoundingClientRect();
+      let bodyPos = { x: rect.left, y: rect.top };
+
+      if (Math.abs(headPos.x - bodyPos.x) < 20 && Math.abs(headPos.y - bodyPos.y) < 20) {
+          pause = true; // Stop the game
+          console.log("Game Over!");
+          GameOver();
+      }
+    }
+        // console.log(headPos.x,headPos.y)
+    }, 20);
+
 //     let positions = []; // Store past positions of the head
 //     let delay = 3; // The delay between each segment following the previous one
 
@@ -217,8 +240,8 @@ setInterval(() => {
     addSegment(); // Add a new body part
 
     // Move food to a new random position
-    meal.style.left = `${Math.random() * 700}px`;
-    meal.style.top = `${Math.random() * 250}px`;
+    // meal.style.left = `${Math.random() * 700}px`;
+    // meal.style.top = `${Math.random() * 250}px`;
     // console.table([meal.style.left,meal.style.top])
     //Removing prevfood after  eat
     meal.remove()
