@@ -1,4 +1,20 @@
 let ground=document.querySelector('.ground');
+let audio=document.querySelector('.audio')
+
+window.onload = function () {
+  let Start = new Audio("Start.mp3");
+  Start.play().catch(() => {
+    console.log("Autoplay blocked. Click anywhere to play sound.");
+    document.addEventListener("click", () => Start.play(), { once: true });
+  });
+};
+
+
+// window.onload=function(){
+//   // 🎵 Play Game start Sound
+//     let Start = new Audio('Start.mp3'); // Replace with your sound file
+//     Start.play();
+// }
 let snakeBody=[];
 let length=1;
 //SNAKE body
@@ -50,6 +66,10 @@ let GameOver = () => {
           // Stop ALL movement
           gsap.killTweensOf(snakeBody[0]);  // Stop head movement
           clearInterval(followInterval);   // Stop body following
+         
+          // 🎵 Play Game Over Sound
+    let gameOverSound = new Audio('gameover.mp3'); // Replace with your sound file
+    gameOverSound.play();
 
           // Optionally, display a "Game Over" message
           let gameOverText = document.createElement('div');
@@ -134,7 +154,6 @@ let getHeadPosition = () => {
       // console.log(pause)
       // console.log(prevdir)
         let headPos = getHeadPosition();
-    
         // Store the current head position in the queue
         positions.unshift({ x: headPos.x, y: headPos.y });
         
@@ -258,6 +277,10 @@ setInterval(() => {
   // Check if head is close to the food (proximity check)
   if (Math.abs(headPos.x - foodpos.x) < 20 && Math.abs(headPos.y - foodpos.y) < 20) {
     length += 1;
+    // 🎵 Play dinner Sound
+    let gameOverSound = new Audio('Food.mp3'); // Replace with your sound file
+    gameOverSound.play();
+
     addSegment(); // Add a new body part
 
     // Move food to a new random position
