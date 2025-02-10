@@ -46,28 +46,44 @@ let addSegment = () => {
 };
 //Movement 
 var direction;
+var prevdir;
 document.addEventListener("keydown", (event) => {
-    // let snake = document.querySelector(".cobra"); // Select the box
-    
-    
-    // Kill any existing animation before starting a new one
-    gsap.killTweensOf(snakeBody[0]);
-    
-    // Move the box based on arrow key pressed
-    if (event.key === "ArrowRight" && event.key!=='ArrowLeft') {
-      direction=event.key
-      gsap.to(snakeBody[0], { x: "+=1500", duration: 10 });
-    } else if (event.key === "ArrowLeft" && event.key!=='ArrowRight') {
-      direction=event.key
-      gsap.to(snakeBody[0], { x: "-=1500", duration: 10 });
-    } else if (event.key === "ArrowUp" && event.key!=='ArrowDown') {
-      direction=event.key
-      gsap.to(snakeBody[0], { y: "-=1500", duration: 10 });
-    } else if (event.key === "ArrowDown"  && event.key!=='ArrowUp') {
-      direction=event.key
-      gsap.to(snakeBody[0], { y: "+=1500", duration: 10 });
-    }
-  });
+  // Kill existing animation before new movement
+  gsap.killTweensOf(snakeBody[0]);
+
+  // Prevent direct reversal of direction
+  // if (
+  //     (event.key === "ArrowRight" && direction !== "ArrowLeft") ||
+  //     (event.key === "ArrowLeft" && direction !== "ArrowRight") ||
+  //     (event.key === "ArrowUp" && direction !== "ArrowDown") ||
+  //     (event.key === "ArrowDown" && direction !== "ArrowUp")
+  // )
+   {
+      direction = event.key; // Update direction only if valid
+      if((direction=="ArrowRight" && prevdir!="ArrowLeft")||
+      (direction=="ArrowLeft" && prevdir!="ArrowRight")||
+      (direction=="ArrowUp" && prevdir!="ArrowDown")||  
+      (direction=="ArrowDown" && prevdir!="ArrowUp")
+    ){
+      prevdir=direction;}
+      // Move the snake based on the new direction
+      if (prevdir === "ArrowRight") {
+          gsap.to(snakeBody[0], { x: "+=1500", duration: 10 });
+      } else if (prevdir === "ArrowLeft") {
+          gsap.to(snakeBody[0], { x: "-=1500", duration: 10 });
+      } else if (prevdir === "ArrowUp") {
+          gsap.to(snakeBody[0], { y: "-=1500", duration: 10 });
+      } else if (prevdir === "ArrowDown") {
+          gsap.to(snakeBody[0], { y: "+=1500", duration: 10 });
+      }
+  }
+});
+// Get the head's current position
+let getHeadPosition = () => {
+  let rect = snakeBody[0].getBoundingClientRect();
+  return { x: rect.left, y: rect.top };
+};
+
   //follow
   // Example usage
   // setInterval(() => {
@@ -80,13 +96,7 @@ document.addEventListener("keydown", (event) => {
       if(pause){
         return;
       }
-      console.log(direction)
-        // Get the head's current position
-        let getHeadPosition = () => {
-            let rect = snakeBody[0].getBoundingClientRect();
-            return { x: rect.left, y: rect.top };
-        };
-    
+      // console.log(prevdir)
         let headPos = getHeadPosition();
     
         // Store the current head position in the queue
@@ -104,13 +114,28 @@ document.addEventListener("keydown", (event) => {
                 snakeBody[i].style.top = `${positions[i * delay].y}px`;
             }
         }
-        console.log(headPos.x,headPos.y)
+        GameOver();
+        // console.log(headPos.x,headPos.y)
     }, 10);
     function GameStop(){
       pause=true;
     }
 
-    
+    // Game Over
+let GameOver=()=>{
+  let getBodyPosition = () => {
+          
+           for(let i=1;i<length;i++){
+            let rect = snakeBody[i].getBoundingClientRect();
+            return { x: rect.left, y: rect.top };
+          };
+          let headPos = getHeadPosition();
+          let BodyPos = getBodyPosition();
+            if(Math.abs(headPos.x - BodyPos.x) < 20 && Math.abs(headPos.y - BodyPos.y) < 20){
+            pause=true;
+          }
+          }
+        }
 //     let positions = []; // Store past positions of the head
 //     let delay = 3; // The delay between each segment following the previous one
 
@@ -169,6 +194,7 @@ ground.appendChild(Food)
 return PrevFood;
 }
 let meal=food();
+
 //LENGTH
 
 setInterval(() => {
@@ -193,7 +219,12 @@ setInterval(() => {
     // Move food to a new random position
     meal.style.left = `${Math.random() * 700}px`;
     meal.style.top = `${Math.random() * 250}px`;
-    PrevFood.style.display='none'
+    // console.table([meal.style.left,meal.style.top])
+    //Removing prevfood after  eat
+    meal.remove()
+
+    //GENERATE  new food
+    meal=food();
   }
   // console.log(length)
 }, 50); // Check every 50ms
