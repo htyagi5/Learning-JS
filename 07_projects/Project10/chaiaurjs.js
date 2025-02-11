@@ -1,13 +1,13 @@
 let ground=document.querySelector('.ground');
 let audio=document.querySelector('.audio')
 
-window.onload = function () {
-  let Start = new Audio("Start.mp3");
-  Start.play().catch(() => {
-    console.log("Autoplay blocked. Click anywhere to play sound.");
-    document.addEventListener("click", () => Start.play(), { once: true });
-  });
-};
+// window.onload = function () {
+//   let Start = new Audio("Start.mp3");
+//   Start.play().catch(() => {
+//     console.log("Autoplay blocked. Click anywhere to play sound.");
+//     document.addEventListener("click", () => Start.play(), { once: true });
+//   }); 
+// };
 
 
 // window.onload=function(){
@@ -23,13 +23,15 @@ let createSnake=()=>{
 let div=document.createElement('div')
 div.className='cobra'
 div.style.width='40px'
-div.style.height='30px'
-div.style.position='absolute'
+div.style.height='42px'
+div.style.position='absolute';
 div.style.borderRadius='20px'
-div.style.backgroundColor='white'
-let addText=document.createTextNode("hello")
-div.appendChild(addText) 
-div.style.color='red'
+// div.style.backgroundColor='white'
+div.style.backgroundImage='url(Snake.jpg)'
+// div.style.background
+// let addText=document.createTextNode("hello")
+// div.appendChild(addText) 
+// div.style.color='red'
 div.style.display='flex'
 div.style.justifyContent='center'
 // document.body.appendChild(div)
@@ -44,14 +46,14 @@ let addSegment = () => {
   let div = document.createElement('div');
   div.className = 'cobra';
   div.style.width = '40px';
-  div.style.height = '30px';
+  div.style.height = '42px';
   div.style.position = 'absolute';
   div.style.borderRadius = '20px';
-  div.style.backgroundColor = 'white';
+  // div.style.backgroundColor = 'white';
+  div.style.backgroundImage='url(skin.jpg)'
   div.style.color = 'red';
   div.style.display = 'flex';
   div.style.justifyContent = 'center';
-
   // Position new segment at the last segment's position
   let lastSegment = snakeBody[snakeBody.length - 1];
   div.style.left = lastSegment.style.left;
@@ -63,30 +65,65 @@ let addSegment = () => {
 
 // Game Over
 let GameOver = () => {          
-          // Stop ALL movement
-          gsap.killTweensOf(snakeBody[0]);  // Stop head movement
-          clearInterval(followInterval);   // Stop body following
-         
-          // 🎵 Play Game Over Sound
-    let gameOverSound = new Audio('gameover.mp3'); // Replace with your sound file
-    gameOverSound.play();
-
-          // Optionally, display a "Game Over" message
-          let gameOverText = document.createElement('div');
-          gameOverText.innerText = "GAME OVER";
-          gameOverText.style.position = "absolute";
-          gameOverText.style.top = "50%";
-          gameOverText.style.left = "50%";
-          gameOverText.style.transform = "translate(-50%, -50%)";
-          gameOverText.style.color = "red";
-          gameOverText.style.fontSize = "30px";
-          gameOverText.style.fontWeight = "bold";
-          ground.appendChild(gameOverText);
-
-          return ; // Exit once collision is detected
+  // Stop ALL movement
+  gsap.killTweensOf(snakeBody[0]);  // Stop head movement
+  clearInterval(followInterval);   // Stop body following
+  
+  // 🎵 Play Game Over Sound
+  let gameOverSound = new Audio('gameover.mp3'); // Replace with your sound file
+  gameOverSound.play();
+  
+  // Optionally, display a "Game Over" message
+  let gameOverText = document.createElement('div');
+  gameOverText.innerText = "GAME OVER";
+  gameOverText.style.position = "absolute";
+  gameOverText.style.top = "50%";
+  gameOverText.style.left = "50%";
+  gameOverText.style.transform = "translate(-50%, -50%)";
+  gameOverText.style.color = "red";
+  gameOverText.style.fontSize = "30px";
+  gameOverText.style.fontWeight = "bold";
+  ground.appendChild(gameOverText);
+  
+  return ; // Exit once collision is detected
 }
+var speed=20;
+var up=40;
+//Levels
+let Level=document.querySelectorAll('.navbar')
+Level.forEach((level)=>{
+  level.addEventListener('click',(e)=>{
+    if(e.target.value=='Easy'){
+      speed=20 
+      up=40;
+    }
+    else if(e.target.value=='Medium')  {
+      speed=10
+    up=30}
+    else if(e.target.value=='Hard')  {
+      speed=5
+       up=1
+    };
+  })
+})
 
+// Score
+let score = 0;
+let scoreDisplay = document.createElement('div');
+scoreDisplay.className = 'score';
+scoreDisplay.style.position = 'absolute';
+scoreDisplay.style.top = '10px';
+scoreDisplay.style.right = '10px';
+scoreDisplay.style.color = 'white';
+scoreDisplay.style.fontSize = '30px';
+scoreDisplay.innerText = `Score: ${score}`;
+document.body.appendChild(scoreDisplay);
 
+// Update scored
+let updateScore = () => {
+  score += 10; // Increment score by 10 for each food eaten
+  scoreDisplay.innerText = `Score: ${score}`;
+};
 
 //Movement 
 var direction;
@@ -97,37 +134,37 @@ document.addEventListener("keydown", (event) => {
   if (pause) return; // Stop movement if the game is over  
   // Kill existing animation before new movement
   gsap.killTweensOf(snakeBody[0]);
-
+  
   // Prevent direct reversal of direction
   // if (
-  //     (event.key === "ArrowRight" && direction !== "ArrowLeft") ||
-  //     (event.key === "ArrowLeft" && direction !== "ArrowRight") ||
-  //     (event.key === "ArrowUp" && direction !== "ArrowDown") ||
-  //     (event.key === "ArrowDown" && direction !== "ArrowUp")
-  // )
-   {
+    //     (event.key === "ArrowRight" && direction !== "ArrowLeft") ||
+    //     (event.key === "ArrowLeft" && direction !== "ArrowRight") ||
+    //     (event.key === "ArrowUp" && direction !== "ArrowDown") ||
+    //     (event.key === "ArrowDown" && direction !== "ArrowUp")
+    // )
+    {
       direction = event.key; // Update direction only if valid
-
+      
       if((direction=="ArrowRight" && prevdir!="ArrowLeft"  && pause==false)||
       (direction=="ArrowLeft" && prevdir!="ArrowRight" && pause==false)||
       (direction=="ArrowUp" && prevdir!="ArrowDown" && pause==false)||  
       (direction=="ArrowDown" && prevdir!="ArrowUp" && pause==false)
     ){
       prevdir=direction;}
-    else{
-      gsap.killTweensOf(snakeBody[0]);  // Stop head movement
-
-    }
-
+      else{
+        gsap.killTweensOf(snakeBody[0]);  // Stop head movement
+        
+      }
+      
       // Move the snake based on the new direction
       if (prevdir === "ArrowRight") {
-          gsap.to(snakeBody[0], { x: "+=1500", duration: 10 });
+        gsap.to(snakeBody[0], { x: "+=1500", duration: speed });
       } else if (prevdir === "ArrowLeft") {
-          gsap.to(snakeBody[0], { x: "-=1500", duration: 10 });
+        gsap.to(snakeBody[0], { x: "-=1500", duration: speed });
       } else if (prevdir === "ArrowUp") {
-          gsap.to(snakeBody[0], { y: "-=1500", duration: 10 });
+        gsap.to(snakeBody[0], { y: "-=1500", duration: speed });
       } else if (prevdir === "ArrowDown") {
-          gsap.to(snakeBody[0], { y: "+=1500", duration: 10 });
+        gsap.to(snakeBody[0], { y: "+=1500", duration: speed });
       }
   }
 });
@@ -170,7 +207,7 @@ let getHeadPosition = () => {
             }
         }
 
-  for (let i = 3; i < snakeBody.length; i++) { // Start from 1, not 0
+  for (let i = 5; i < snakeBody.length; i++) { // Start from 1, not 0
       let rect = snakeBody[i].getBoundingClientRect();
       let bodyPos = { x: rect.left, y: rect.top };
        
@@ -197,7 +234,7 @@ let getHeadPosition = () => {
     }
 
         // console.log(headPos.x,headPos.y)
-    }, 20);
+    }, up);
 
 //     let positions = []; // Store past positions of the head
 //     let delay = 3; // The delay between each segment following the previous one
@@ -242,12 +279,13 @@ Food.className='food'
 Food.style.backgroundColor='red'
 Food.style.width='20px'
 Food.style.height='20px'
+// Food.style.backgroundImage='url(Food.jpeg)';
 Food.style.borderRadius="20px"
 
 let value1=Math.round(Math.random()*1000+1);
 let value2=Math.round(Math.random()*250+1);
-let value3=Math.round(Math.random()*500+1);
-let value4=Math.round(Math.random()*500+1);
+let value3=Math.round(Math.random()*400+1);
+let value4=Math.round(Math.random()*300+1);
 Food.style.position="absolute"
 Food.style.marginLeft=`${value1}px`
 Food.style.marginRight=`${value2}px`
@@ -280,7 +318,8 @@ setInterval(() => {
     // 🎵 Play dinner Sound
     let gameOverSound = new Audio('Food.mp3'); // Replace with your sound file
     gameOverSound.play();
-
+    
+    updateScore();
     addSegment(); // Add a new body part
 
     // Move food to a new random position

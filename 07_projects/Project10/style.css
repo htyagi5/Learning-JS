@@ -12,24 +12,38 @@ html , body{
     justify-content: center;
 } */
 body{
-    background-color: black;
     color: wheat;
    
 }
 .playground{
     /* margin-top: 7vh; */
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
-    background-color: greenyellow;
+    background-image: url('Boundary.jpeg');
+    background-size: cover;
+    /* background-color: greenyellow; */
     display: flex;
     justify-content:center ;
     align-items: center;
 }
+.navbar{
+    width: 80%;
+    height: 5%;
+    background-color:black ;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 30px;
+}
 .ground{
-    margin: 5%;
+    /* margin: 5%; */
     width: 90%;
-    height: 600px;
-    background-color: plum;
+    height:590px;
+    /* background-color: plum; */
+    background-image: url('Background.jpeg');
+    background-size: cover;
     border: 2px solid black;
     /* border-radius: 20px; */
 }
