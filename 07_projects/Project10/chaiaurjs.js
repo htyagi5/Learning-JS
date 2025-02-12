@@ -1,13 +1,13 @@
 let ground=document.querySelector('.ground');
 let audio=document.querySelector('.audio')
 
-// window.onload = function () {
-//   let Start = new Audio("Start.mp3");
-//   Start.play().catch(() => {
-//     console.log("Autoplay blocked. Click anywhere to play sound.");
-//     document.addEventListener("click", () => Start.play(), { once: true });
-//   }); 
-// };
+window.onload = function () {
+  let Start = new Audio("Start.mp3");
+  Start.play().catch(() => {
+    console.log("Autoplay blocked. Click anywhere to play sound.");
+    document.addEventListener("click", () => Start.play(), { once: true });
+  }); 
+};
 
 
 // window.onload=function(){
