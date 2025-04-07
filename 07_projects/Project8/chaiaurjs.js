@@ -32,5 +32,5 @@ btn.addEventListener("click",()=>{
 //     setInterval(function(){
 //         img.innerHTML= `<img src="${baseurl}${i}${end}" alt="img"></img>`
 //         i++;
-//          },100)
+//          },1000)
 // })

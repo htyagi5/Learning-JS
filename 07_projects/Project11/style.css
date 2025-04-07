@@ -1,0 +1,80 @@
+body{
+    background-color: black;
+    color: wheat;
+    display: grid;
+    justify-content: center;
+}
+.canvas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board{
+    width: 705px;
+    height: 450px;
+    background-color: aqua;
+    display: grid;
+    border: solid white;
+    border-width: 6px;
+    grid-template-rows: 150px 150px 150px ;
+    grid-template-columns: 235px 235px 235px ;
+}
+
+.item1{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(190, 21, 78);
+    border-width: 10px;
+}
+.item2{
+
+    display: flex;
+    justify-content: center;
+    border: solid rgb(170, 74, 106);
+    border-width: 10px;
+
+}
+.item3{
+
+    display: flex;
+    justify-content: center;
+    border: solid rgb(106, 6, 39);
+    border-width: 10px;
+}
+.item4{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}
+.item5{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}
+.item6{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}
+.item7{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}
+.item8{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}
+.item9{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(250, 5, 87);
+    border-width: 10px;
+}

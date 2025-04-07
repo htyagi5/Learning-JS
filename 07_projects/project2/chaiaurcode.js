@@ -11,6 +11,6 @@ form.addEventListener('submit',function(e){
  results.innerHTML=`please ENTER valid weight input ${weight}`
  }
  else{
-   results.innerHTML=`${weight/((height*height)/1000).toFixed(2)}`
+   results.innerHTML=`${weight/((height*height)/10000).toFixed(2)}`
  }
 })
