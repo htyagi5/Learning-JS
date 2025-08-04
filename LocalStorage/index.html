@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body{
+          background-color: black;
+          color: white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }   
+      button{
+        margin: 20px;
+          padding: 10px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      textarea{
+         padding-left: 10%;
+         padding-top: 10%;
+      }
+      .content{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+     #output{
+         font-size: 30px;
+         margin-top: 20px;
+         padding: 100px;
+         background-color: #333;
+         border-radius: 5px;
+         width: 300px;
+         text-align: center;
+     }
+    </style>
+</head>
+<body >
+    <h1>Local Storage and  Session storage</h1>
+    <div class="content">
+        <textarea name="Data" id="inputkey" placeholder="key"></textarea>
+        <textarea name="Data" id="inputData" placeholder="value"></textarea>
+    </div>
+    <div class="btn">
+        <button onclick="saveData()">save</button>
+        <button onclick="loadData()">Load</button>
+        <button onclick="clearData()">clear</button>
+        <button onclick="Data()">completeData</button>
+    </div>
+    <p id="output"></p>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!--  
+
+                    Local Storage                              |          Session Storage       
+                                                               |
+   1. Data persits Even after the browser is closed            | 1. Data is lost when tab or browser is closed
+      or computer restarted  (Until manually cleared)          |
+   2. Shared across all tabs/windows of the same               | 2. Available only in the same tab where it was 
+      origin (website)                                         |    created
+   3. Usually 5 to 10MB and storing long term preferences,     | 3. Usually 5 to 10 MB storing temporary data for single 
+      save data ,offline content                               |    browsing session like form entries or session tokens
+
+-->
